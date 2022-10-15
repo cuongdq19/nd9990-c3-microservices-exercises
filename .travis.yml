@@ -8,10 +8,10 @@ script:
   - docker --version # print the version for logging
   - docker-compose -f ./project/docker-compose-build.yaml build --parallel
   - docker-compose up -f ./project/docker-compose.yaml
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push cuongdeveloper19/udagram-api-feed:v1
-  - docker push cuongdeveloper19/udagram-api-user:v1
-  - docker push cuongdeveloper19/udagram-frontend:v1
+  - docker push cuongdeveloper19/udagram-api-feed:latest
+  - docker push cuongdeveloper19/udagram-api-user:latest
+  - docker push cuongdeveloper19/udagram-frontend:latest
+  - docker push cuongdeveloper19/reverseproxy:latest
