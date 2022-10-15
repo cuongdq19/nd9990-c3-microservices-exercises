@@ -9,6 +9,9 @@ script:
   - docker-compose -f docker-compose-build.yaml build --parallel
   - docker-compose up
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push cuongdeveloper19/udagram-api-feed:v1
   - docker push cuongdeveloper19/udagram-api-user:v1
   - docker push cuongdeveloper19/udagram-frontend:v1
