@@ -6,12 +6,16 @@ services:
 
 script:
   - docker --version # print the version for logging
-  - docker-compose -f ./project/docker-compose-build.yaml build --parallel
-  - docker-compose -f ./project/docker-compose.yaml up
-
-after_success:
+  - docker build -t udagram-api-feed ./project/udagram-api-feed
+  - docker build -t udagram-api-user ./project/udagram-api-user
+  - docker build -t udagram-frontend ./project/udagram-frontend
+  - docker build -t reverseproxy ./project/udagram-reverseproxy
+  - docker tag udagram-api-feed $DOCKER_USERNAME/udagram-api-feed:v1
+  - docker tag udagram-api-user $DOCKER_USERNAME/udagram-api-user:v1
+  - docker tag udagram-frontend $DOCKER_USERNAME/udagram-frontend:v1
+  - docker tag reverseproxy $DOCKER_USERNAME/reverseproxy:v1
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push cuongdeveloper19/udagram-api-feed:latest
-  - docker push cuongdeveloper19/udagram-api-user:latest
-  - docker push cuongdeveloper19/udagram-frontend:latest
-  - docker push cuongdeveloper19/reverseproxy:latest
+  - docker push $DOCKER_USERNAME/udagram-api-feed:v1
+  - docker push $DOCKER_USERNAME/udagram-api-user:v1
+  - docker push $DOCKER_USERNAME/udagram-frontend:v1
+  - docker push $DOCKER_USERNAME/reverseproxy:v1
