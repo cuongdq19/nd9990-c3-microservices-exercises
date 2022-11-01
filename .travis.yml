@@ -6,7 +6,7 @@ services:
 
 script:
   - docker --version
-  - docker-compose build -f docker-compose-build.yaml
+  - docker-compose -f docker-compose-build.yaml build
 
 deploy:
   provider: script
